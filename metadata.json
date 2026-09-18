@@ -1,0 +1,7 @@
+{
+  "name": "Gemini AI & Workspace Suite",
+  "description": "Comprehensive creative and productivity studio integrating Gemini generative models, multimodal intelligence, and Google Workspace services.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

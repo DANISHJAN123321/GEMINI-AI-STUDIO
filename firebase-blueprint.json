@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "Avatar URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "lastLoginAt": { "type": "string", "format": "date-time", "description": "Last sign in timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "WorkspaceItem": {
+      "title": "WorkspaceItem",
+      "description": "Productivity items including notes, tasks, docs, and sheet rows",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique item identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "type": { "type": "string", "enum": ["note", "task", "doc", "sheet", "form", "event", "contact", "chat"], "description": "Type of workspace item" },
+        "title": { "type": "string", "description": "Item title or summary" },
+        "content": { "type": "string", "description": "Detailed text content, JSON data, or markdown" },
+        "status": { "type": "string", "description": "Status, e.g. pending, completed, active" },
+        "tags": { "type": "string", "description": "Comma separated tags or categories" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Update timestamp" }
+      },
+      "required": ["id", "userId", "type", "title", "createdAt"]
+    },
+    "GenerationItem": {
+      "title": "GenerationItem",
+      "description": "AI generated creative outputs including images, audio, video, and text analysis",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique generation record ID" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "kind": { "type": "string", "enum": ["image", "music", "video", "text", "speech", "transcription", "thinking", "grounded"], "description": "Modality type" },
+        "model": { "type": "string", "description": "Gemini / Veo / Lyria model used" },
+        "prompt": { "type": "string", "description": "User prompt provided to the model" },
+        "resultUrl": { "type": "string", "description": "Output media URL or base64 data" },
+        "resultText": { "type": "string", "description": "Text output or transcript" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp created" }
+      },
+      "required": ["id", "userId", "kind", "model", "prompt", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile collection"
+    },
+    "/users/{userId}/items/{itemId}": {
+      "schema": "WorkspaceItem",
+      "description": "User-specific workspace items"
+    },
+    "/users/{userId}/generations/{genId}": {
+      "schema": "GenerationItem",
+      "description": "User-specific AI generations"
+    }
+  }
+}
